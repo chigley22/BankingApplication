@@ -25,7 +25,7 @@ public class DataEntry {
             if (!input.matches("[0-9]+")) {
                 System.out.println("Please enter numbers only:");
             }
-        }while (!input.matches("[0-9]+"))
+        }while (!input.matches("[0-9]+"));
         return input;
     }
 
@@ -87,10 +87,10 @@ public class DataEntry {
         String state = enterStringWithLimit(2);
 
         System.out.println("Enter Customer Zip Code: ");
-        String zip = enterNumericString() + enterIntWithRange(5, 5);
+        String zip = enterNumericString();
 
         System.out.println("Enter Customer Phone Number (Number Only)");
-        String phone = enterNumericString() + enterIntWithRange(10, 10);
+        String phone = enterNumericString();
 
         return new Customer(customerId, customerSSN, lastName, firstName, street, city, state, zip, phone);
     }
