@@ -63,5 +63,36 @@ public class DataEntry {
         System.out.println("Enter date (Format: MM/DD/YYYY): ");
         return scanner.nextLine();
     }
+
+    public static Customer enterCustomer() {
+        System.out.println("Enter Customer ID: ");
+        String customerId = enterStringWithLimit(5);
+
+        System.out.println("Enter Customer SSN (Numbers Only): ");
+        String customerSSN = enterNumericString();
+
+        System.out.println("Enter Customer Last Name: ");
+        String lastName = enterStringWithLimit(20);
+
+        System.out.println("Enter Customer First Name: ");
+        String firstName = enterStringWithLimit(15);
+
+        System.out.println("Enter Customer Street Address: ");
+        String street = enterStringWithLimit(20);
+
+        System.out.println("Enter Customer City: ");
+        String city = enterStringWithLimit(20);
+
+        System.out.println("Enter Customer State: ");
+        String state = enterStringWithLimit(2);
+
+        System.out.println("Enter Customer Zip Code: ");
+        String zip = enterNumericString() + enterIntWithRange(5, 5);
+
+        System.out.println("Enter Customer Phone Number (Number Only)");
+        String phone = enterNumericString() + enterIntWithRange(10, 10);
+
+        return new Customer(customerId, customerSSN, lastName, firstName, street, city, state, zip, phone);
+    }
     
 }
