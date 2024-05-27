@@ -9,8 +9,9 @@ public class Customer {
     private String state;
     private String zip;
     private String phone;
+    private Account account;
 
-    public Customer(String customerId, String customerSSN, String lastName, String firstName, String street, String city, String state, String zip, String phone) {
+    public Customer(String customerId, String customerSSN, String lastName, String firstName, String street, String city, String state, String zip, String phone, Account account) {
 
         this.customerId = customerId;
         this.customerSSN = customerSSN;
@@ -21,6 +22,7 @@ public class Customer {
         this.state = state;
         this.zip = zip;
         this.phone = phone;
+        this.account = account;
     }
 
     public String getCustomerId() {
@@ -95,6 +97,14 @@ public class Customer {
         this.phone = phone;
     }
 
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
     public String toString() {
         return "Customer ID: " + customerId + "\n" +
         "SSN: " + customerSSN + "\n" +
@@ -104,7 +114,8 @@ public class Customer {
         "City: " + city + "\n" +
         "State: " + state + "\n" +
         "Zip: " + zip + "\n" +
-        "Phone: " + phone;
+        "Phone: " + phone +
+        "Account: " + (account != null ? account.toString() : "No account");
     }
     
 }

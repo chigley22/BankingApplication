@@ -19,7 +19,6 @@ public class DataEntry {
         } while (input.isEmpty() || input.length() > limit);
         return input;
     }
-    
 
     public static String enterSSN() {
         String input;
@@ -28,7 +27,7 @@ public class DataEntry {
             if (!input.matches("[0-9]{9}")) {
                 System.out.println("Please enter 9 numbers only:");
             }
-        }while (!input.matches("[0-9]{9}"));
+        } while (!input.matches("[0-9]{9}"));
         return input;
     }
 
@@ -39,7 +38,7 @@ public class DataEntry {
             if (!input.matches("[0-9]{5}")) {
                 System.out.println("Please enter 5 numbers only:");
             }
-        }while (!input.matches("[0-9]{5}"));
+        } while (!input.matches("[0-9]{5}"));
         return input;
     }
 
@@ -50,17 +49,25 @@ public class DataEntry {
             if (!input.matches("[0-9]{10}")) {
                 System.out.println("Please enter 10 digit number no dashes:");
             }
-        }while (!input.matches("[0-9]{10}"));
+        } while (!input.matches("[0-9]{10}"));
         return input;
     }
 
     public static int enterInt() {
+        while (!scanner.hasNextInt()) {
+            System.out.println("Invalid input. Please enter an integer:");
+            scanner.next(); // consume invalid input
+        }
         return scanner.nextInt();
     }
 
     public static int enterIntWithRange(int min, int max) {
         int input;
         do {
+            while (!scanner.hasNextInt()) {
+                System.out.println("Invalid input. Please enter an integer:");
+                scanner.next(); // consume invalid input
+            }
             input = scanner.nextInt();
             if (input < min || input > max) {
                 System.out.println("Please enter a minimum of " + min + " but no more than " + max);
@@ -70,12 +77,20 @@ public class DataEntry {
     }
 
     public static double enterDouble() {
+        while (!scanner.hasNextDouble()) {
+            System.out.println("Invalid input. Please enter a decimal number:");
+            scanner.next(); // consume invalid input
+        }
         return scanner.nextDouble();
     }
 
     public static double enterDoubleWithRange(double min, double max) {
         double input;
         do {
+            while (!scanner.hasNextDouble()) {
+                System.out.println("Invalid input. Please enter a decimal number:");
+                scanner.next(); // consume invalid input
+            }
             input = scanner.nextDouble();
             if(input < min || input > max) {
                 System.out.println("Please enter a decimal with a minimum of " + min + " but no more than " + max + ".");
@@ -88,6 +103,7 @@ public class DataEntry {
         System.out.println("Enter date (Format: MM/DD/YYYY): ");
         return scanner.nextLine();
     }
+
     public static String enterCustomerId() {
         String customerId;
         do {
@@ -126,17 +142,16 @@ public class DataEntry {
         System.out.println("Enter Customer Zip Code: ");
         String zip = enterZip();
 
-        System.out.println("Enter Customer Phone Number (Number Only)");
+        System.out.println("Enter Customer Phone Number (Numbers Only): ");
         String phone = enterPhone();
 
-        return new Customer(customerId, customerSSN, lastName, firstName, street, city, state, zip, phone);
+        return new Customer(customerId, customerSSN, lastName, firstName, street, city, state, zip, phone, null); // initially set account to null
     }
-    
 
     public static Account enterAccount() {
         System.out.println("Enter Account Number (max 5 characters): ");
         String accountNumber = enterStringWithLimit(5);
-
+    
         System.out.println("Enter Account Type (CHK or SAV): ");
         String accountType;
         do {
@@ -145,16 +160,19 @@ public class DataEntry {
                 System.out.println("Account Type must be CHK or SAV.");
             }
         } while (!accountType.equals("CHK") && !accountType.equals("SAV"));
-
+    
         System.out.println("Enter Service Fee (0.00 - 10.00): ");
         double serviceFee = enterDoubleWithRange(0.00, 10.00);
-
+    
         System.out.println("Enter Interest Rate (0.00 - 10.00): ");
         double interestRate = enterDoubleWithRange(0.00, 10.00);
-
-        System.out.println("Enter Overdraft Fee: ");
-        double overdraftFee = enterDouble();
-
-        return new Account(accountNumber, accountType, serviceFee, interestRate, overdraftFee);
-    }   
+    
+        if (accountType.equals("CHK")) {
+            System.out.println("Enter Overdraft Fee: ");
+            double overdraftFee = enterDouble();
+            return new CheckingAccount(accountNumber, serviceFee, overdraftFee, interestRate);
+        } else {
+            return new SavingsAccount(accountNumber, serviceFee, interestRate);
+        }
+    }
 }

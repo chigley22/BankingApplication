@@ -1,4 +1,4 @@
-public class Account {
+public abstract class Account {
     private String accountNumber;
     private String accountType;
     private double serviceFee;
@@ -12,47 +12,27 @@ public class Account {
         this.serviceFee = serviceFee;
         this.interestRate = interestRate;
         this.overdraftFee = overdraftFee;
-        this.balance = 0.0; 
+        this.balance = 0.0;
     }
 
     public String getAccountNumber() {
         return accountNumber;
     }
 
-    public void setAccountNumber(String accountNumber) {
-        this.accountNumber = accountNumber;
-    }
-
     public String getAccountType() {
         return accountType;
-    }
-
-    public void setAccountType(String accountType) {
-        this.accountType = accountType;
     }
 
     public double getServiceFee() {
         return serviceFee;
     }
 
-    public void setServiceFee(double serviceFee) {
-        this.serviceFee = serviceFee;
-    }
-
     public double getInterestRate() {
         return interestRate;
     }
 
-    public void setInterestRate(double interestRate) {
-        this.interestRate = interestRate;
-    }
-
     public double getOverdraftFee() {
         return overdraftFee;
-    }
-
-    public void setOverdraftFee(double overdraftFee) {
-        this.overdraftFee = overdraftFee;
     }
 
     public double getBalance() {
@@ -62,6 +42,10 @@ public class Account {
     public void setBalance(double balance) {
         this.balance = balance;
     }
+
+    public abstract void withdrawal(double amount);
+
+    public abstract void deposit(double amount);
 
     @Override
     public String toString() {
